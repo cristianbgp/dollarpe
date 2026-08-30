@@ -1,18 +1,35 @@
 # dollarpe
 
-![npm](https://img.shields.io/npm/v/dollarpe?style=for-the-badge)
+dollarpe provides tools for checking the US dollar to Peruvian sol exchange rate.
 
-![image](https://user-images.githubusercontent.com/8507974/114220130-382f4000-9931-11eb-9aa8-273c199cb8a7.png)
+This repository is being organized as a lightweight monorepo. Each application owns its dependencies, lockfile, build, and release process; the root package only coordinates common commands.
 
+## Applications
 
-CLI to get dollar to peruvian sol exchange rate
+| Application | Description |
+| --- | --- |
+| [`apps/cli`](apps/cli) | Published `dollarpe` command-line application |
 
-Currently, it only shows the data from rextie, kambista, roblex, decamoney and tkambio
+The public API and website will be added as independent applications in later migration phases.
 
-## Install
+## Development
 
-    yarn global add dollarpe
+Install application dependencies:
 
-## Usage
+```sh
+bun run install:apps
+```
 
-    dollarpe
+Run the CLI in development:
+
+```sh
+bun run dev
+```
+
+Build the CLI:
+
+```sh
+bun run build
+```
+
+Application-specific commands can also be run directly from `apps/cli`.
