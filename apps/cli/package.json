@@ -36,17 +36,13 @@
     "ink-link": "^4.1.0",
     "meow": "^11.0.0",
     "react": "^18.2.0",
-    "react-error-boundary": "^4.0.13",
-    "swr": "^2.2.5"
+    "react-error-boundary": "^4.1.2",
+    "swr": "^2.5.1"
   },
   "devDependencies": {
-    "@types/bun": "latest",
-    "@types/react": "^18.0.32",
-    "chalk": "^5.2.0",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "@types/bun": "1.4.0",
+    "@types/react": "^18.3.31",
     "ink-testing-library": "^3.0.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.0.3"
+    "typescript": "^5.9.3"
   }
 }

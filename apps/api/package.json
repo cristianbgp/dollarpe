@@ -13,13 +13,13 @@
     "@hono/swagger-ui": "^0.6.1",
     "@hono/zod-openapi": "^1.6.1",
     "hono": "^4.12.23",
-    "zod": "^4.0.0"
+    "zod": "^4.5.4"
   },
   "devDependencies": {
     "@types/bun": "1.4.0",
     "@types/node": "26.4.0",
     "@types/swagger-ui-dist": "^3.30.6",
     "typescript": "^7.0.2",
-    "wrangler": "^4.20.3"
+    "wrangler": "^4.127.1"
   }
 }
