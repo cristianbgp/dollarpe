@@ -1,53 +1,52 @@
 {
-	"name": "dollarpe",
-	"version": "3.0.2",
-	"description": "dollar to peruvian sol exchange rate",
-	"author": "cristianbgp <cristian.granda.pastor@gmail.com>",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/cristianbgp/dollarpe.git",
-		"directory": "apps/cli"
-	},
-	"bin": "dist/cli.js",
-	"type": "module",
-	"scripts": {
-		"build": "tsc",
-		"dev": "bun run ./source/cli.tsx"
-	},
-	"keywords": [
-		"currency",
-		"dollar"
-	],
-	"engines": {
-		"node": ">=16"
-	},
-	"files": [
-		"dist"
-	],
-	"babel": {
-		"presets": [
-			"@babel/preset-env",
-			"@babel/preset-react"
-		]
-	},
-	"dependencies": {
-		"ink": "^4.1.0",
-		"ink-link": "^4.1.0",
-		"meow": "^11.0.0",
-		"react": "^18.2.0",
-		"react-error-boundary": "^4.0.13",
-		"swr": "^2.2.5"
-	},
-	"devDependencies": {
-		"@types/bun": "latest",
-		"@types/react": "^18.0.32",
-		"chalk": "^5.2.0",
-		"eslint-plugin-react": "^7.32.2",
-		"eslint-plugin-react-hooks": "^4.6.0",
-		"ink-testing-library": "^3.0.0",
-		"prettier": "^2.8.7",
-		"ts-node": "^10.9.1",
-		"typescript": "^5.0.3"
-	}
+  "name": "dollarpe",
+  "version": "3.0.2",
+  "description": "dollar to peruvian sol exchange rate",
+  "author": "cristianbgp <cristian.granda.pastor@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cristianbgp/dollarpe.git",
+    "directory": "apps/cli"
+  },
+  "bin": "dist/cli.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "bun run ./source/cli.tsx"
+  },
+  "keywords": [
+    "currency",
+    "dollar"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "dist"
+  ],
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "dependencies": {
+    "ink": "^4.1.0",
+    "ink-link": "^4.1.0",
+    "meow": "^11.0.0",
+    "react": "^18.2.0",
+    "react-error-boundary": "^4.0.13",
+    "swr": "^2.2.5"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/react": "^18.0.32",
+    "chalk": "^5.2.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "ink-testing-library": "^3.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.3"
+  }
 }

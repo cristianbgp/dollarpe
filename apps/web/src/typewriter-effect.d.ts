@@ -1,4 +1,4 @@
-type Speed = "natural" | number
+type Speed = "natural" | number;
 
 declare module "typewriter-effect/dist/core" {
   export interface Options {
@@ -160,7 +160,7 @@ declare module "typewriter-effect/dist/core" {
      */
     callFunction(
       callback: (state: TypewriterState) => void,
-      thisArg?: Record<string, any>
+      thisArg?: Record<string, any>,
     ): Typewriter;
 
     /**

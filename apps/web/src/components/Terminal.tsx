@@ -20,16 +20,16 @@ export default function Terminal() {
   });
 
   return (
-    <main class="p-8 flex justify-center items-center">
-      <div class="flex flex-col bg-[#2A2B2F] min-h-[420px] max-w-[800px] w-full p-2 rounded-lg">
+    <main class="flex items-center justify-center p-8">
+      <div class="flex min-h-[420px] w-full max-w-[800px] flex-col rounded-lg bg-[#2A2B2F] p-2">
         <div class="flex space-x-2">
-          <div class="rounded-full w-4 h-4 bg-[#FF5F56]" />
-          <div class="rounded-full w-4 h-4 bg-[#FDBB2C]" />
-          <div class="rounded-full w-4 h-4 bg-[#27C840]" />
+          <div class="h-4 w-4 rounded-full bg-[#FF5F56]" />
+          <div class="h-4 w-4 rounded-full bg-[#FDBB2C]" />
+          <div class="h-4 w-4 rounded-full bg-[#27C840]" />
         </div>
         <div class="h-full py-2 text-white">
           <div class="flex">
-            <span class="text-[#5AF78F] mr-1">→</span>
+            <span class="mr-1 text-[#5AF78F]">→</span>
             <span id="dollarpe_typewriter"></span>
           </div>
           {showResultBlock() && <ResultsBlock />}

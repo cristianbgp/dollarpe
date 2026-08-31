@@ -1,10 +1,7 @@
 import { swaggerUI } from "@hono/swagger-ui";
 import type { OpenAPIHono } from "@hono/zod-openapi";
 import readme from "../../README.md" with { type: "text" };
-import {
-  negotiateContentType,
-  setNegotiatedResponseHeaders,
-} from "../http";
+import { negotiateContentType, setNegotiatedResponseHeaders } from "../http";
 
 const indexText =
   "dollarpe by @cristianbgp\n\nGET /exchanges\nGET /exchanges?sort=buy|sell\n\nGET /official-rate\nGET /official-rate?date=YYYY-MM-DD\n\nGET /openapi.json\nGET /docs\nGET /readme";
@@ -27,13 +24,13 @@ export function registerDiscoveryRoutes(app: OpenAPIHono): void {
     const contentType = negotiateContentType(
       c,
       ["text/plain", "text/markdown"],
-      "text/plain"
+      "text/plain",
     );
 
     if (contentType === "not-acceptable") {
       return c.text(
         "Not Acceptable. Request text/plain or text/markdown.",
-        406
+        406,
       );
     }
 

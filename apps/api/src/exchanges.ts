@@ -8,15 +8,15 @@ export type DataEntry = [ProviderName, DataResult];
 
 const buyCriteriaDesc = sortCriteriaGenerator<DataEntry>(
   ([, item]) => item.buy,
-  { desc: true }
+  { desc: true },
 );
 const sellCriteriaDesc = sortCriteriaGenerator<DataEntry>(
   ([, item]) => item.sell,
-  { asc: true }
+  { asc: true },
 );
 
 export async function getAllData(
-  sort: ExchangeSort = "buy"
+  sort: ExchangeSort = "buy",
 ): Promise<DataEntry[]> {
   const settledRates = await Promise.allSettled(
     providers.map(async (provider) => {
@@ -37,7 +37,7 @@ export async function getAllData(
         });
         throw error;
       }
-    })
+    }),
   );
 
   const rates = settledRates.flatMap((result, index): DataEntry[] => {

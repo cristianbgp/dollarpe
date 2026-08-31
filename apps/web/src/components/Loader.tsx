@@ -11,7 +11,7 @@ export default function Loader() {
   createEffect(() => {
     const timer = setInterval(() => {
       setLoader((prevLoader) =>
-        dots.frames.length - 1 === prevLoader ? 0 : prevLoader + 1
+        dots.frames.length - 1 === prevLoader ? 0 : prevLoader + 1,
       );
     }, dots.interval);
 

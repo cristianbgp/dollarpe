@@ -5,7 +5,7 @@ import App from "./app.js";
 import meow from "meow";
 
 const cli = meow(
-`
+  `
 Usage
 $ dollarpe
 
@@ -16,21 +16,21 @@ Examples
 $ dollarpe --sort=buy
 $ dollarpe --sort=sell
 `,
-	{
-		importMeta: import.meta,
-		flags: {
-			sort: {
-				type: "string",
-				alias: "s",
-			},
-			help: {
-				alias: "h",
-			},
-			version: {
-				alias: "v",
-			},
-		},
-	}
+  {
+    importMeta: import.meta,
+    flags: {
+      sort: {
+        type: "string",
+        alias: "s",
+      },
+      help: {
+        alias: "h",
+      },
+      version: {
+        alias: "v",
+      },
+    },
+  },
 );
 
 render(<App sort={cli.flags.sort as "buy" | "sell"} />);

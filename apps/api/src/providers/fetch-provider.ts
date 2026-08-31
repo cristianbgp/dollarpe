@@ -1,14 +1,13 @@
-import type {
-  DataResult,
-  ExchangeProvider,
-  ProviderDefinition,
-} from "./types";
+import type { DataResult, ExchangeProvider, ProviderDefinition } from "./types";
 import { withProviderCache } from "./cache";
 
 const UPSTREAM_TIMEOUT_MS = 5_000;
 
 export class ProviderRequestError extends Error {
-  constructor(message: string, readonly status?: number) {
+  constructor(
+    message: string,
+    readonly status?: number,
+  ) {
     super(message);
     this.name = "ProviderRequestError";
   }
@@ -51,7 +50,7 @@ export function defineProvider<TResponse>({
           if (!response.ok) {
             throw new ProviderRequestError(
               `${name} request failed with status ${response.status}`,
-              response.status
+              response.status,
             );
           }
 
@@ -66,7 +65,7 @@ export function defineProvider<TResponse>({
             sell <= 0
           ) {
             throw new ProviderRequestError(
-              `${name} returned invalid exchange rates`
+              `${name} returned invalid exchange rates`,
             );
           }
 

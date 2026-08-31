@@ -1,18 +1,13 @@
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  spyOn,
-  test,
-} from "bun:test";
+import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
 import app from "./index";
 
 const originalFetch = globalThis.fetch;
 let consoleErrorSpy: ReturnType<typeof spyOn> | undefined;
 
 const useFetch = (
-  implementation: (...args: Parameters<typeof fetch>) => ReturnType<typeof fetch>
+  implementation: (
+    ...args: Parameters<typeof fetch>
+  ) => ReturnType<typeof fetch>,
 ) => {
   globalThis.fetch = Object.assign(implementation, {
     preconnect: originalFetch.preconnect,
@@ -52,7 +47,7 @@ test("GET / keeps the concise endpoint index as plain text by default", async ()
   expect(response.headers.get("Content-Type")).toContain("text/plain");
   expect(response.headers.get("Vary")).toBe("Accept, Accept-Encoding");
   expect(body).toBe(
-    "dollarpe by @cristianbgp\n\nGET /exchanges\nGET /exchanges?sort=buy|sell\n\nGET /official-rate\nGET /official-rate?date=YYYY-MM-DD\n\nGET /openapi.json\nGET /docs\nGET /readme"
+    "dollarpe by @cristianbgp\n\nGET /exchanges\nGET /exchanges?sort=buy|sell\n\nGET /official-rate\nGET /official-rate?date=YYYY-MM-DD\n\nGET /openapi.json\nGET /docs\nGET /readme",
   );
 });
 
@@ -65,13 +60,13 @@ test("GET / serves a concise Markdown index when the client prefers it", async (
 
   expect(response.status).toBe(200);
   expect(response.headers.get("Content-Type")).toBe(
-    "text/markdown; charset=utf-8"
+    "text/markdown; charset=utf-8",
   );
   expect(response.headers.get("Vary")).toBe("Accept, Accept-Encoding");
   const body = await response.text();
   expect(body).toStartWith("# dollarpe by @cristianbgp");
   expect(body).toContain(
-    "[GET /official-rate?date=YYYY-MM-DD](/official-rate?date=YYYY-MM-DD)"
+    "[GET /official-rate?date=YYYY-MM-DD](/official-rate?date=YYYY-MM-DD)",
   );
   expect(body).toContain("[GET /readme](/readme)");
   expect(body).not.toContain("## Development");
@@ -140,7 +135,7 @@ test("GET / ignores Accept extensions declared after the quality value", async (
 
   expect(response.status).toBe(200);
   expect(response.headers.get("Content-Type")).toBe(
-    "text/markdown; charset=utf-8"
+    "text/markdown; charset=utf-8",
   );
 });
 
@@ -169,12 +164,12 @@ test("GET / returns 406 when no text representation is acceptable", async () => 
 test("GET /readme serves the exact README.md source as Markdown", async () => {
   const response = await app.request("/readme");
   const readme = await Bun.file(
-    new URL("../README.md", import.meta.url)
+    new URL("../README.md", import.meta.url),
   ).text();
 
   expect(response.status).toBe(200);
   expect(response.headers.get("Content-Type")).toBe(
-    "text/markdown; charset=utf-8"
+    "text/markdown; charset=utf-8",
   );
   expect(await response.text()).toBe(readme);
 });
@@ -185,7 +180,7 @@ test("unknown routes return a recoverable Markdown 404", async () => {
 
   expect(response.status).toBe(404);
   expect(response.headers.get("Content-Type")).toBe(
-    "text/markdown; charset=utf-8"
+    "text/markdown; charset=utf-8",
   );
   expect(body).toStartWith("# Not Found");
   expect(body).toContain("[/readme](/readme)");
@@ -263,7 +258,7 @@ describe("OpenAPI documentation", () => {
     expect(exchanges.operationId).toBe("listExchangeRates");
     expect(exchanges.description?.length).toBeGreaterThan(0);
     expect(
-      exchanges.parameters?.find((parameter) => parameter.name === "sort")
+      exchanges.parameters?.find((parameter) => parameter.name === "sort"),
     ).toMatchObject({
       name: "sort",
       in: "query",
@@ -280,7 +275,7 @@ describe("OpenAPI documentation", () => {
     expect(officialRate.operationId).toBe("getOfficialRate");
     expect(officialRate.description?.length).toBeGreaterThan(0);
     expect(
-      officialRate.parameters?.find((parameter) => parameter.name === "date")
+      officialRate.parameters?.find((parameter) => parameter.name === "date"),
     ).toMatchObject({
       name: "date",
       in: "query",
@@ -294,7 +289,7 @@ describe("OpenAPI documentation", () => {
     ]);
 
     const operationIds = Object.values(document.paths).flatMap(({ get }) =>
-      get?.operationId ? [get.operationId] : []
+      get?.operationId ? [get.operationId] : [],
     );
     expect(new Set(operationIds).size).toBe(operationIds.length);
     expect(document.components.schemas.Error.required?.sort()).toEqual([
@@ -304,7 +299,7 @@ describe("OpenAPI documentation", () => {
       "message",
     ]);
     expect(
-      Object.keys(document.components.schemas.Error.properties ?? {}).sort()
+      Object.keys(document.components.schemas.Error.properties ?? {}).sort(),
     ).toEqual(["code", "error", "hint", "message"]);
   });
 
@@ -409,45 +404,41 @@ describe("GET /exchanges upstream isolation", () => {
     ]);
   });
 
-  test(
-    "omits a provider that exceeds the request timeout",
-    async () => {
-      useFetch(async (input, init) => {
-        const url = String(input);
+  test("omits a provider that exceeds the request timeout", async () => {
+    useFetch(async (input, init) => {
+      const url = String(input);
 
-        if (url.includes("rextie")) {
-          return jsonResponse(rextieResponse);
-        }
+      if (url.includes("rextie")) {
+        return jsonResponse(rextieResponse);
+      }
 
-        if (url.includes("kambista")) {
-          return new Promise<Response>((_resolve, reject) => {
-            init?.signal?.addEventListener(
-              "abort",
-              () => reject(init.signal?.reason),
-              { once: true }
-            );
-          });
-        }
+      if (url.includes("kambista")) {
+        return new Promise<Response>((_resolve, reject) => {
+          init?.signal?.addEventListener(
+            "abort",
+            () => reject(init.signal?.reason),
+            { once: true },
+          );
+        });
+      }
 
-        throw new Error("Provider unavailable in test");
-      });
+      throw new Error("Provider unavailable in test");
+    });
 
-      const response = await app.request("/exchanges");
+    const response = await app.request("/exchanges");
 
-      expect(response.status).toBe(200);
-      expect(await response.json()).toEqual([
-        [
-          "rextie",
-          {
-            buy: 3.33,
-            sell: 3.36,
-            pageUrl: "https://www.rextie.com/",
-          },
-        ],
-      ]);
-    },
-    6_000
-  );
+    expect(response.status).toBe(200);
+    expect(await response.json()).toEqual([
+      [
+        "rextie",
+        {
+          buy: 3.33,
+          sell: 3.36,
+          pageUrl: "https://www.rextie.com/",
+        },
+      ],
+    ]);
+  }, 6_000);
 });
 
 describe("GET /exchanges sorting", () => {
@@ -503,14 +494,14 @@ describe("GET /official-rate", () => {
       jsonResponse([
         { fecPublica: "01/01/2000", valTipo: "3.340", codTipo: "C" },
         { fecPublica: "01/01/2000", valTipo: "3.348", codTipo: "V" },
-      ])
+      ]),
     );
 
     const response = await app.request("/official-rate");
 
     expect(response.status).toBe(200);
     expect(response.headers.get("Cache-Control")).toBe(
-      "public, s-maxage=3600, stale-while-revalidate=86400"
+      "public, s-maxage=3600, stale-while-revalidate=86400",
     );
     expect(await response.json()).toEqual({
       source: "sunat",

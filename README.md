@@ -6,11 +6,11 @@ This repository is being organized as a lightweight monorepo. Each application o
 
 ## Applications
 
-| Application | Description |
-| --- | --- |
-| [`apps/api`](apps/api) | Public Hono and Cloudflare Workers API |
+| Application            | Description                                   |
+| ---------------------- | --------------------------------------------- |
+| [`apps/api`](apps/api) | Public Hono and Cloudflare Workers API        |
 | [`apps/cli`](apps/cli) | Published `dollarpe` command-line application |
-| [`apps/web`](apps/web) | Public SolidStart website |
+| [`apps/web`](apps/web) | Public SolidStart website                     |
 
 ## Development
 
@@ -18,6 +18,13 @@ Install application dependencies:
 
 ```sh
 bun run install:apps
+```
+
+Format or check formatting across the repository:
+
+```sh
+bun run format
+bun run format:check
 ```
 
 Run an application in development:

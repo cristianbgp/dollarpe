@@ -18,13 +18,13 @@ export default function ResultsBlock() {
   }));
 
   return (
-    <p class="flex flex-col ml-3">
+    <p class="ml-3 flex flex-col">
       <Switch>
         <Match when={dataQuery.isLoading}>
           <Loader />
         </Match>
         <Match when={dataQuery.error}>
-          <span class="flex flex-col ml-3 text-red-500">
+          <span class="ml-3 flex flex-col text-red-500">
             <span>Something went wrong 🚨</span>
             <span>Try again later</span>
           </span>
@@ -39,7 +39,7 @@ export default function ResultsBlock() {
                     href={pageUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-red-400 border-b border-red-400 border-dashed"
+                    class="border-b border-dashed border-red-400 text-red-400"
                   >
                     {name}
                   </a>

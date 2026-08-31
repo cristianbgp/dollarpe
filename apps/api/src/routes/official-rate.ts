@@ -58,7 +58,7 @@ export function registerOfficialRateRoutes(app: OpenAPIHono): void {
 
         c.header(
           "Cache-Control",
-          "public, s-maxage=3600, stale-while-revalidate=86400"
+          "public, s-maxage=3600, stale-while-revalidate=86400",
         );
         return c.json(rate, 200);
       } catch (error) {
@@ -67,9 +67,9 @@ export function registerOfficialRateRoutes(app: OpenAPIHono): void {
             createApiError(
               "INVALID_DATE",
               error.message,
-              "Use a real, non-future date in YYYY-MM-DD format."
+              "Use a real, non-future date in YYYY-MM-DD format.",
             ),
-            400
+            400,
           );
         }
 
@@ -82,9 +82,9 @@ export function registerOfficialRateRoutes(app: OpenAPIHono): void {
           createApiError(
             "OFFICIAL_RATE_UNAVAILABLE",
             "Official exchange rate is temporarily unavailable",
-            "Retry later or request a different historical date."
+            "Retry later or request a different historical date.",
           ),
-          503
+          503,
         );
       }
     },
@@ -94,11 +94,11 @@ export function registerOfficialRateRoutes(app: OpenAPIHono): void {
           createApiError(
             "INVALID_DATE",
             "Invalid date",
-            "Use a real, non-future date in YYYY-MM-DD format."
+            "Use a real, non-future date in YYYY-MM-DD format.",
           ),
-          400
+          400,
         );
       }
-    }
+    },
   );
 }

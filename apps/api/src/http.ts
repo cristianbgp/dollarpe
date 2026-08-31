@@ -3,7 +3,7 @@ import type { Context } from "hono";
 
 const getQuality = (params: Record<string, string>, fallback: number) => {
   const quality = Object.entries(params).find(
-    ([name]) => name.toLowerCase() === "q"
+    ([name]) => name.toLowerCase() === "q",
   )?.[1];
 
   if (quality === undefined) return fallback;
@@ -15,21 +15,21 @@ const getQuality = (params: Record<string, string>, fallback: number) => {
 const matchesMediaParameters = (params: Record<string, string>) => {
   const entries = Object.entries(params);
   const qualityIndex = entries.findIndex(
-    ([name]) => name.toLowerCase() === "q"
+    ([name]) => name.toLowerCase() === "q",
   );
   const mediaParameters =
     qualityIndex === -1 ? entries : entries.slice(0, qualityIndex);
 
   return mediaParameters.every(
     ([name, value]) =>
-      name.toLowerCase() === "charset" && value.toLowerCase() === "utf-8"
+      name.toLowerCase() === "charset" && value.toLowerCase() === "utf-8",
   );
 };
 
 const matchSpecificity = (
   acceptedType: string,
   supportedType: string,
-  params: Record<string, string>
+  params: Record<string, string>,
 ) => {
   if (!matchesMediaParameters(params)) return 0;
 
@@ -50,7 +50,7 @@ const matchSpecificity = (
 export const negotiateContentType = (
   c: Context,
   supportedTypes: string[],
-  defaultType: string
+  defaultType: string,
 ) =>
   accepts(c, {
     header: "Accept",
@@ -66,7 +66,7 @@ export const negotiateContentType = (
               specificity: matchSpecificity(
                 acceptedType.type,
                 supportedType,
-                acceptedType.params
+                acceptedType.params,
               ),
             }))
             .filter(({ specificity }) => specificity > 0)
@@ -74,7 +74,7 @@ export const negotiateContentType = (
               (left, right) =>
                 right.specificity - left.specificity ||
                 right.q - left.q ||
-                left.acceptedIndex - right.acceptedIndex
+                left.acceptedIndex - right.acceptedIndex,
             );
 
           const bestMatch = matches[0];
@@ -91,13 +91,13 @@ export const negotiateContentType = (
           (left, right) =>
             right.q - left.q ||
             left.acceptedIndex - right.acceptedIndex ||
-            left.supportedIndex - right.supportedIndex
+            left.supportedIndex - right.supportedIndex,
         );
 
       if (candidates[0]) return candidates[0].supportedType;
 
       const hasPositivePreference = acceptedTypes.some(
-        ({ params, q }) => getQuality(params, q) > 0
+        ({ params, q }) => getQuality(params, q) > 0,
       );
 
       if (!hasPositivePreference) {
@@ -108,9 +108,9 @@ export const negotiateContentType = (
               matchSpecificity(
                 acceptedType.type,
                 supportedType,
-                acceptedType.params
-              ) === 0
-          )
+                acceptedType.params,
+              ) === 0,
+          ),
         );
 
         if (nonExcludedType) return nonExcludedType;
@@ -134,7 +134,7 @@ export type ApiError = {
 export const createApiError = (
   code: string,
   message: string,
-  hint: string
+  hint: string,
 ): ApiError => ({
   error: message,
   code,

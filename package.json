@@ -1,19 +1,25 @@
 {
-	"name": "dollarpe",
-	"version": "0.0.0",
-	"private": true,
-	"scripts": {
-		"install:apps": "bun install --cwd apps/cli --no-save && bun install --cwd apps/api --frozen-lockfile && bun install --cwd apps/web --no-save",
-		"dev": "bun run dev:cli",
-		"dev:cli": "bun run --cwd apps/cli dev",
-		"dev:api": "bun run --cwd apps/api dev",
-		"dev:web": "bun run --cwd apps/web dev",
-		"build": "bun run build:cli && bun run build:web",
-		"build:cli": "bun run --cwd apps/cli build",
-		"build:web": "bun run --cwd apps/web build",
-		"test:api": "bun run --cwd apps/api test",
-		"typecheck:api": "bun run --cwd apps/api typecheck",
-		"check": "bun run build && bun run check:api",
-		"check:api": "bun run --cwd apps/api check"
-	}
+  "name": "dollarpe",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "install:apps": "bun install --cwd apps/cli --no-save && bun install --cwd apps/api --frozen-lockfile && bun install --cwd apps/web --no-save",
+    "dev": "bun run dev:cli",
+    "dev:cli": "bun run --cwd apps/cli dev",
+    "dev:api": "bun run --cwd apps/api dev",
+    "dev:web": "bun run --cwd apps/web dev",
+    "build": "bun run build:cli && bun run build:web",
+    "build:cli": "bun run --cwd apps/cli build",
+    "build:web": "bun run --cwd apps/web build",
+    "test:api": "bun run --cwd apps/api test",
+    "typecheck:api": "bun run --cwd apps/api typecheck",
+    "check": "bun run format:check && bun run build && bun run check:api",
+    "check:api": "bun run --cwd apps/api check"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1"
+  }
 }

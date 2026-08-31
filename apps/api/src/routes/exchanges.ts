@@ -56,15 +56,15 @@ export function registerExchangeRoutes(app: OpenAPIHono): void {
           createApiError(
             "EXCHANGE_RATES_UNAVAILABLE",
             "Exchange rates are temporarily unavailable",
-            "Retry later; upstream providers may be temporarily unavailable."
+            "Retry later; upstream providers may be temporarily unavailable.",
           ),
-          503
+          503,
         );
       }
 
       c.header(
         "Cache-Control",
-        "public, s-maxage=60, stale-while-revalidate=30"
+        "public, s-maxage=60, stale-while-revalidate=30",
       );
       return c.json(result, 200);
     },
@@ -74,11 +74,11 @@ export function registerExchangeRoutes(app: OpenAPIHono): void {
           createApiError(
             "INVALID_SORT",
             "Invalid sort criteria",
-            "Use sort=buy or sort=sell."
+            "Use sort=buy or sort=sell.",
           ),
-          400
+          400,
         );
       }
-    }
+    },
   );
 }

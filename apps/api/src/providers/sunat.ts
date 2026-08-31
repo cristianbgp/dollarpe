@@ -39,8 +39,7 @@ export class InvalidSunatDateError extends Error {
   }
 }
 
-const PAGE_URL =
-  "https://e-consulta.sunat.gob.pe/cl-at-ittipcam/tcS01Alias";
+const PAGE_URL = "https://e-consulta.sunat.gob.pe/cl-at-ittipcam/tcS01Alias";
 const ENDPOINT = `${PAGE_URL}/listarTipoCambio`;
 const UPSTREAM_TIMEOUT_MS = 5_000;
 const CACHE_TTL_SECONDS = 3_600;
@@ -108,7 +107,7 @@ function isValidRequestedDate(value: string, today: string): boolean {
 
 export function selectSunatRate(
   rows: SunatExchangeRateRow[],
-  isoDate: string
+  isoDate: string,
 ): SunatRate | null {
   const ratesByDate = new Map<string, Partial<SunatRate>>();
 
@@ -150,7 +149,7 @@ async function fetchMonth(year: number, month: number) {
   if (!response.ok) {
     throw new ProviderRequestError(
       `sunat request failed with status ${response.status}`,
-      response.status
+      response.status,
     );
   }
 
@@ -163,7 +162,7 @@ async function fetchMonth(year: number, month: number) {
 }
 
 export async function fetchSunatOfficialRate(
-  requestedDate?: string
+  requestedDate?: string,
 ): Promise<SunatOfficialRate> {
   const today = limaDateParts().isoDate;
   const isoDate = requestedDate ?? today;

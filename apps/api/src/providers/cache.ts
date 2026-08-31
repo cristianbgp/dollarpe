@@ -14,8 +14,7 @@ type CachedValueOptions<T> = {
   validate: (value: unknown) => value is T;
 };
 
-const CACHE_BASE_URL =
-  "https://dollarpe-api.cristianbgp.com/.provider-cache/";
+const CACHE_BASE_URL = "https://dollarpe-api.cristianbgp.com/.provider-cache/";
 
 function defaultCache(): WorkerCache | undefined {
   return (globalThis as unknown as { caches?: WorkerCacheStorage }).caches
@@ -54,7 +53,7 @@ export async function withProviderCache<T>({
       request,
       Response.json(value, {
         headers: { "Cache-Control": `public, max-age=${ttlSeconds}` },
-      })
+      }),
     );
   } catch {
     // The upstream result is still valid even when an edge cache write fails.

@@ -47,7 +47,9 @@ const responseForUrl = (url: string) => {
 };
 
 const useFetch = (
-  implementation: (...args: Parameters<typeof fetch>) => ReturnType<typeof fetch>
+  implementation: (
+    ...args: Parameters<typeof fetch>
+  ) => ReturnType<typeof fetch>,
 ) => {
   globalThis.fetch = Object.assign(implementation, {
     preconnect: originalFetch.preconnect,
@@ -104,7 +106,7 @@ test("Cambio Mundial selects the regular rate regardless of response order", asy
         createdAt: "2026-08-28T13:31:42",
         updatedAt: "2026-08-28T13:31:42",
       },
-    ])
+    ]),
   );
 
   expect(await cambiomundialProvider.fetchRate()).toEqual({
@@ -123,24 +125,22 @@ test("commercial providers reuse a validated rate for 60 seconds", async () => {
   });
 
   const commercialProviders = providers.filter(
-    ({ name }) => name !== "cambiomundial" && name !== "sunat"
+    ({ name }) => name !== "cambiomundial" && name !== "sunat",
   );
   const first = await Promise.all(
-    commercialProviders.map((provider) => provider.fetchRate())
+    commercialProviders.map((provider) => provider.fetchRate()),
   );
   const second = await Promise.all(
-    commercialProviders.map((provider) => provider.fetchRate())
+    commercialProviders.map((provider) => provider.fetchRate()),
   );
 
   expect(second).toEqual(first);
   expect(upstreamRequests).toBe(7);
   expect(
     [...cache.values()].map((response) =>
-      response.headers.get("Cache-Control")
-    )
-  ).toEqual(
-    Array.from({ length: 7 }, () => "public, max-age=60")
-  );
+      response.headers.get("Cache-Control"),
+    ),
+  ).toEqual(Array.from({ length: 7 }, () => "public, max-age=60"));
 });
 
 test("Cambio Mundial reuses a validated rate for 5 minutes", async () => {
@@ -156,7 +156,7 @@ test("Cambio Mundial reuses a validated rate for 5 minutes", async () => {
 
   expect(upstreamRequests).toBe(1);
   expect([...cache.values()][0]?.headers.get("Cache-Control")).toBe(
-    "public, max-age=300"
+    "public, max-age=300",
   );
 });
 
@@ -170,7 +170,7 @@ test("provider errors are not cached", async () => {
   });
 
   await expect(cambiomundialProvider.fetchRate()).rejects.toThrow(
-    "cambiomundial request failed with status 429"
+    "cambiomundial request failed with status 429",
   );
   await cambiomundialProvider.fetchRate();
 
@@ -191,7 +191,7 @@ test("SUNAT caches its validated official rate despite using POST upstream", asy
   expect(second).toEqual(first);
   expect(upstreamRequests).toBe(1);
   expect([...cache.values()][0]?.headers.get("Cache-Control")).toBe(
-    "public, max-age=3600"
+    "public, max-age=3600",
   );
 });
 
@@ -205,8 +205,8 @@ test("maps every provider response to a normalized exchange rate", async () => {
       providers.map(async (provider) => [
         provider.name,
         await provider.fetchRate(),
-      ])
-    )
+      ]),
+    ),
   );
 
   expect(results).toEqual({
@@ -262,7 +262,7 @@ test("uses each provider's required HTTP contract", async () => {
         contentType: headers.get("Content-Type"),
         subscriptionKey: headers.get("Ocp-Apim-Subscription-Key"),
       };
-    })
+    }),
   ).toEqual([
     {
       url: "https://app.rextie.com/api/v1/fxrates/rate/",

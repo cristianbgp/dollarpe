@@ -1,0 +1,9 @@
+**/node_modules/
+**/dist/
+**/.output/
+**/.vinxi/
+**/.wrangler/
+**/coverage/
+**/bun.lock
+**/bun.lockb
+apps/*/src/generated/

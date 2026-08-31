@@ -6,7 +6,9 @@ const originalFetch = globalThis.fetch;
 let consoleErrorSpy: ReturnType<typeof spyOn> | undefined;
 
 const useFetch = (
-  implementation: (...args: Parameters<typeof fetch>) => ReturnType<typeof fetch>
+  implementation: (
+    ...args: Parameters<typeof fetch>
+  ) => ReturnType<typeof fetch>,
 ) => {
   globalThis.fetch = Object.assign(implementation, {
     preconnect: originalFetch.preconnect,
@@ -26,7 +28,7 @@ test("logs structured diagnostics for every failed provider", async () => {
   await getAllData();
 
   const logs: unknown[] = consoleErrorSpy.mock.calls.map(
-    (call: unknown[]) => call[0]
+    (call: unknown[]) => call[0],
   );
 
   expect(logs).toHaveLength(providerNames.length);

@@ -7,9 +7,7 @@ export async function GET(event: APIEvent) {
   const sort = (queryParams.get("sort") || "buy") as "buy" | "sell";
 
   try {
-    const response = await fetch(
-      `${API_URL}?sort=${sort}`
-    );
+    const response = await fetch(`${API_URL}?sort=${sort}`);
     const data = await response.json();
     return new Response(JSON.stringify(data), {
       headers: {

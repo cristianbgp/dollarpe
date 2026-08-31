@@ -1,6 +1,6 @@
 export default function sortCriteriaGenerator<T>(
   accessor: (obj: T) => string | number,
-  { asc = true, desc = false }
+  { asc = true, desc = false },
 ) {
   return (a: T, b: T) => {
     const textA = accessor(a);
