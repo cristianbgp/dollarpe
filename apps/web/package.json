@@ -1,10 +1,13 @@
 {
-  "name": "example-with-tailwindcss",
+  "name": "dollarpe-web",
   "type": "module",
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",
-    "start": "vinxi start"
+    "start": "vinxi start",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "check": "bun run typecheck && bun test && bun run build"
   },
   "dependencies": {
     "@kobalte/core": "^0.13.13",
@@ -24,5 +27,9 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.0",
+    "typescript": "5.9.3"
   }
 }

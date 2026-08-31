@@ -1,15 +1,12 @@
 import Loader from "@/components/Loader";
-import { API_URL } from "@/config";
+import { listExchangeRates } from "@/generated/dollarpe";
 import { createQuery } from "@tanstack/solid-query";
 import { For, Match, Switch } from "solid-js";
 
 export default function ResultsBlock() {
   const dataQuery = createQuery(() => ({
     queryKey: ["exchanges"],
-    queryFn: async () => {
-      const response = await fetch(API_URL);
-      return response.json();
-    },
+    queryFn: async () => (await listExchangeRates()).data,
     retry: (failureCount) => {
       if (failureCount < 5) return true;
       return false;

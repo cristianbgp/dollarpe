@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "Preserve",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["bun"],
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["scripts/**/*.ts", "apps/api/src/assets.d.ts"]
+}

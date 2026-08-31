@@ -4,23 +4,15 @@ import Link from "ink-link";
 import useSWR from "swr";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./error-fallback.js";
+import {
+  listExchangeRates,
+  type ListExchangeRatesParams,
+  type listExchangeRatesResponseSuccess,
+} from "./generated/dollarpe.js";
 import Loader from "./loader.js";
 
-const DOLLARPE_API = "https://dollarpe-api.cristianbgp.com/exchanges";
-
-export type Sort = "buy" | "sell";
-
-export type ExchangeRate = {
-  buy: number;
-  sell: number;
-  pageUrl: string;
-};
-
-export type ResponseData = [string, ExchangeRate][];
-
-export function getExchangesUrl(sort: Sort): string {
-  return `${DOLLARPE_API}?sort=${sort}`;
-}
+export type Sort = NonNullable<ListExchangeRatesParams["sort"]>;
+export type ResponseData = listExchangeRatesResponseSuccess["data"];
 
 function Item({
   name,
@@ -60,11 +52,6 @@ function Item({
   );
 }
 
-async function fetcher(url: string) {
-  const res = await fetch(url);
-  return (await res.json()) as ResponseData;
-}
-
 export function ExchangeList({
   data,
   sort,
@@ -90,13 +77,17 @@ export function ExchangeList({
 }
 
 function Wrapper({ sort }: { sort: Sort }) {
-  const { data, isLoading } = useSWR<ResponseData>(
-    getExchangesUrl(sort),
-    fetcher,
+  const { data, error, isLoading } = useSWR<ResponseData>(
+    ["exchange-rates", sort],
+    async () => (await listExchangeRates({ sort })).data,
   );
 
   if (isLoading) {
     return <Loader />;
+  }
+
+  if (error) {
+    throw error;
   }
 
   return <ExchangeList data={data || []} sort={sort} />;

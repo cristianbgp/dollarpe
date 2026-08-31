@@ -3,8 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "client:generate": "bun run scripts/generate-clients.ts",
+    "client:check": "bun run scripts/check-generated-clients.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "typecheck:root": "tsc --noEmit",
     "install:apps": "bun install --cwd apps/cli --no-save && bun install --cwd apps/api --frozen-lockfile && bun install --cwd apps/web --no-save",
     "dev": "bun run dev:cli",
     "dev:cli": "bun run --cwd apps/cli dev",
@@ -14,14 +17,21 @@
     "build:cli": "bun run --cwd apps/cli build",
     "build:web": "bun run --cwd apps/web build",
     "test:cli": "bun run --cwd apps/cli test",
+    "test:root": "bun test scripts",
+    "test:web": "bun run --cwd apps/web test",
     "check:cli": "bun run --cwd apps/cli check",
+    "check:web": "bun run --cwd apps/web check",
     "test:api": "bun run --cwd apps/api test",
     "typecheck:api": "bun run --cwd apps/api typecheck",
-    "check": "bun run format:check && bun run test:cli && bun run build && bun run check:api",
+    "typecheck:web": "bun run --cwd apps/web typecheck",
+    "check": "bun run typecheck:root && bun run test:root && bun run client:check && bun run format:check && bun run check:cli && bun run check:web && bun run check:api",
     "check:api": "bun run --cwd apps/api check"
   },
   "devDependencies": {
+    "@types/bun": "1.4.0",
+    "orval": "^8.27.0",
     "prettier": "^3.9.6",
-    "prettier-plugin-tailwindcss": "^0.8.1"
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "typescript": "5.9.3"
   }
 }
