@@ -4,7 +4,11 @@
 	"description": "dollar to peruvian sol exchange rate",
 	"author": "cristianbgp <cristian.granda.pastor@gmail.com>",
 	"license": "MIT",
-	"repository": "git@github.com:cristianbgp/dollarpe-cli.git",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cristianbgp/dollarpe.git",
+		"directory": "apps/cli"
+	},
 	"bin": "dist/cli.js",
 	"type": "module",
 	"scripts": {

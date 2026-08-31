@@ -22,7 +22,7 @@ export default function Home() {
       <Terminal />
       <div class="flex justify-center items-center flex-col space-x-0 space-y-2 md:flex-row md:space-x-2 md:space-y-0 mb-8">
         <A
-          href="https://github.com/cristianbgp/dollarpe-cli"
+          href="https://github.com/cristianbgp/dollarpe/tree/main/apps/cli"
           target="_blank"
           rel="noopener noreferrer"
           class="bg-[#2A2B2F] hover:bg-[#585a60] text-white transition-colors rounded-md px-3 py-2"
@@ -30,7 +30,7 @@ export default function Home() {
           CLI
         </A>
         <A
-          href="https://github.com/cristianbgp/dollarpe-api"
+          href="https://github.com/cristianbgp/dollarpe/tree/main/apps/api"
           target="_blank"
           rel="noopener noreferrer"
           class="bg-[#2A2B2F] hover:bg-[#585a60] text-white transition-colors rounded-md px-3 py-2"

@@ -10,8 +10,7 @@ This repository is being organized as a lightweight monorepo. Each application o
 | --- | --- |
 | [`apps/api`](apps/api) | Public Hono and Cloudflare Workers API |
 | [`apps/cli`](apps/cli) | Published `dollarpe` command-line application |
-
-The public website will be added as an independent application in a later migration phase.
+| [`apps/web`](apps/web) | Public SolidStart website |
 
 ## Development
 
@@ -26,15 +25,16 @@ Run an application in development:
 ```sh
 bun run dev:cli
 bun run dev:api
+bun run dev:web
 ```
 
-Build the CLI:
+Build the CLI and website:
 
 ```sh
 bun run build
 ```
 
-Check the CLI build and the API typecheck and tests:
+Build the CLI and website, then run the API typecheck and tests:
 
 ```sh
 bun run check
@@ -48,4 +48,4 @@ bun run typecheck:api
 bun run check:api
 ```
 
-Application-specific commands can also be run directly from `apps/cli` or `apps/api`.
+Application-specific commands can also be run directly from `apps/cli`, `apps/api`, or `apps/web`.
