@@ -8,9 +8,10 @@ This repository is being organized as a lightweight monorepo. Each application o
 
 | Application | Description |
 | --- | --- |
+| [`apps/api`](apps/api) | Public Hono and Cloudflare Workers API |
 | [`apps/cli`](apps/cli) | Published `dollarpe` command-line application |
 
-The public API and website will be added as independent applications in later migration phases.
+The public website will be added as an independent application in a later migration phase.
 
 ## Development
 
@@ -20,10 +21,11 @@ Install application dependencies:
 bun run install:apps
 ```
 
-Run the CLI in development:
+Run an application in development:
 
 ```sh
-bun run dev
+bun run dev:cli
+bun run dev:api
 ```
 
 Build the CLI:
@@ -32,4 +34,18 @@ Build the CLI:
 bun run build
 ```
 
-Application-specific commands can also be run directly from `apps/cli`.
+Check the CLI build and the API typecheck and tests:
+
+```sh
+bun run check
+```
+
+Targeted API validation is also available:
+
+```sh
+bun run test:api
+bun run typecheck:api
+bun run check:api
+```
+
+Application-specific commands can also be run directly from `apps/cli` or `apps/api`.

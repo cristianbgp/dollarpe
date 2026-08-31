@@ -3,10 +3,15 @@
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
-		"install:apps": "bun install --cwd apps/cli --no-save",
+		"install:apps": "bun install --cwd apps/cli --no-save && bun install --cwd apps/api --frozen-lockfile",
 		"dev": "bun run dev:cli",
 		"dev:cli": "bun run --cwd apps/cli dev",
+		"dev:api": "bun run --cwd apps/api dev",
 		"build": "bun run build:cli",
-		"build:cli": "bun run --cwd apps/cli build"
+		"build:cli": "bun run --cwd apps/cli build",
+		"test:api": "bun run --cwd apps/api test",
+		"typecheck:api": "bun run --cwd apps/api typecheck",
+		"check": "bun run build:cli && bun run check:api",
+		"check:api": "bun run --cwd apps/api check"
 	}
 }
