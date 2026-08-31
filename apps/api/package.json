@@ -1,0 +1,25 @@
+{
+  "name": "dollarpe-api",
+  "scripts": {
+    "dev": "wrangler dev --port 3000",
+    "dev:bun": "bun run --hot src/index.ts",
+    "start": "bun run src/index.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "check": "bun run typecheck && bun test",
+    "deploy": "wrangler deploy --minify"
+  },
+  "dependencies": {
+    "@hono/swagger-ui": "^0.6.1",
+    "@hono/zod-openapi": "^1.6.1",
+    "hono": "^4.12.23",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.0",
+    "@types/node": "26.4.0",
+    "@types/swagger-ui-dist": "^3.30.6",
+    "typescript": "^7.0.2",
+    "wrangler": "^4.20.3"
+  }
+}
