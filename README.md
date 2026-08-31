@@ -12,6 +12,14 @@ This repository is being organized as a lightweight monorepo. Each application o
 | [`apps/cli`](apps/cli) | Published `dollarpe` command-line application |
 | [`apps/web`](apps/web) | Public SolidStart website                     |
 
+## Deployments
+
+| Service           | URL                                                                            |
+| ----------------- | ------------------------------------------------------------------------------ |
+| Web               | [dollarpe.cristianbgp.com](https://dollarpe.cristianbgp.com)                   |
+| API               | [dollarpe-api.cristianbgp.com](https://dollarpe-api.cristianbgp.com)           |
+| API documentation | [dollarpe-api.cristianbgp.com/docs](https://dollarpe-api.cristianbgp.com/docs) |
+
 ## Development
 
 Install application dependencies:
