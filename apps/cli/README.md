@@ -7,11 +7,11 @@
 
 CLI to get dollar to peruvian sol exchange rate
 
-Currently, it only shows the data from rextie, kambista, roblex, decamoney and tkambio
+Currently, it shows data from `rextie`, `kambista`, `tkambio`, `roblex`, `decamoney`, `tucambista`, `chapacambio`, `cambiomundial`, and `sunat`.
 
 ## Install
 
-    yarn global add dollarpe
+    npm install -g dollarpe
 
 ## Usage
 
