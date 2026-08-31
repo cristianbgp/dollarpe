@@ -13,7 +13,9 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "dev": "bun run ./source/cli.tsx"
+    "dev": "bun run ./source/cli.tsx",
+    "test": "bun test",
+    "check": "bun run build && bun test"
   },
   "keywords": [
     "currency",

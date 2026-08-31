@@ -8,6 +8,20 @@ import Loader from "./loader.js";
 
 const DOLLARPE_API = "https://dollarpe-api.cristianbgp.com/exchanges";
 
+export type Sort = "buy" | "sell";
+
+export type ExchangeRate = {
+  buy: number;
+  sell: number;
+  pageUrl: string;
+};
+
+export type ResponseData = [string, ExchangeRate][];
+
+export function getExchangesUrl(sort: Sort): string {
+  return `${DOLLARPE_API}?sort=${sort}`;
+}
+
 function Item({
   name,
   buy,
@@ -17,11 +31,11 @@ function Item({
   sort,
 }: {
   name: string;
-  buy: string;
-  sell: string;
+  buy: number;
+  sell: number;
   isFirst: boolean;
   pageUrl: string;
-  sort: "buy" | "sell";
+  sort: Sort;
 }) {
   return (
     <Box flexDirection="column">
@@ -51,21 +65,16 @@ async function fetcher(url: string) {
   return (await res.json()) as ResponseData;
 }
 
-type ResponseData = [string, { buy: string; sell: string; pageUrl: string }][];
-
-function Wrapper({ sort }: { sort: "buy" | "sell" }) {
-  const { data, isLoading } = useSWR<ResponseData>(
-    `${DOLLARPE_API}?sort=${sort}`,
-    fetcher,
-  );
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
+export function ExchangeList({
+  data,
+  sort,
+}: {
+  data: ResponseData;
+  sort: Sort;
+}) {
   return (
     <Box flexDirection="column">
-      {(data || []).map(([name, { buy, sell, pageUrl }], index) => (
+      {data.map(([name, { buy, sell, pageUrl }], index) => (
         <Item
           key={name}
           name={name}
@@ -80,7 +89,20 @@ function Wrapper({ sort }: { sort: "buy" | "sell" }) {
   );
 }
 
-export default function App({ sort = "buy" }: { sort: "buy" | "sell" }) {
+function Wrapper({ sort }: { sort: Sort }) {
+  const { data, isLoading } = useSWR<ResponseData>(
+    getExchangesUrl(sort),
+    fetcher,
+  );
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  return <ExchangeList data={data || []} sort={sort} />;
+}
+
+export default function App({ sort = "buy" }: { sort: Sort }) {
   if (sort !== "buy" && sort !== "sell") {
     return (
       <Box flexDirection="column">

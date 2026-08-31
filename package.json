@@ -13,9 +13,11 @@
     "build": "bun run build:cli && bun run build:web",
     "build:cli": "bun run --cwd apps/cli build",
     "build:web": "bun run --cwd apps/web build",
+    "test:cli": "bun run --cwd apps/cli test",
+    "check:cli": "bun run --cwd apps/cli check",
     "test:api": "bun run --cwd apps/api test",
     "typecheck:api": "bun run --cwd apps/api typecheck",
-    "check": "bun run format:check && bun run build && bun run check:api",
+    "check": "bun run format:check && bun run test:cli && bun run build && bun run check:api",
     "check:api": "bun run --cwd apps/api check"
   },
   "devDependencies": {
