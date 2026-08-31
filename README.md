@@ -19,6 +19,7 @@ This repository is being organized as a lightweight monorepo. Each application o
 | Web               | [dollarpe.cristianbgp.com](https://dollarpe.cristianbgp.com)                   |
 | API               | [dollarpe-api.cristianbgp.com](https://dollarpe-api.cristianbgp.com)           |
 | API documentation | [dollarpe-api.cristianbgp.com/docs](https://dollarpe-api.cristianbgp.com/docs) |
+| CLI package       | [npmjs.com/package/dollarpe](https://www.npmjs.com/package/dollarpe)           |
 
 ## Development
 
