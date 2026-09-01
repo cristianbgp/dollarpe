@@ -25,6 +25,9 @@ describe("cli metadata", () => {
     expect(result.exitCode).toBe(0);
     expect(result.stderr).toBe("");
     expect(result.stdout).toContain("Usage");
+    expect(result.stdout.split("\n").map((line) => line.trim())).toContain(
+      "$ dollarpe",
+    );
     expect(result.stdout).toContain("$ dollarpe exchanges --sort=buy");
     expect(result.stdout).toContain(
       "$ dollarpe official-rate --date=2025-11-17",
@@ -36,6 +39,6 @@ describe("cli metadata", () => {
 
     expect(result.exitCode).toBe(0);
     expect(result.stderr).toBe("");
-    expect(result.stdout.trim()).toBe("4.1.0");
+    expect(result.stdout.trim()).toBe("4.1.1");
   });
 });

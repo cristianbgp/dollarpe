@@ -7,6 +7,7 @@ import meow from "meow";
 const cli = meow(
   `
 Usage
+$ dollarpe
 $ dollarpe exchanges
 $ dollarpe official-rate
 
