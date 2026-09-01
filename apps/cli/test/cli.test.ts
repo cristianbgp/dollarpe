@@ -25,7 +25,10 @@ describe("cli metadata", () => {
     expect(result.exitCode).toBe(0);
     expect(result.stderr).toBe("");
     expect(result.stdout).toContain("Usage");
-    expect(result.stdout).toContain("$ dollarpe --sort=buy");
+    expect(result.stdout).toContain("$ dollarpe exchanges --sort=buy");
+    expect(result.stdout).toContain(
+      "$ dollarpe official-rate --date=2025-11-17",
+    );
   });
 
   test("prints the package version", async () => {
@@ -33,6 +36,6 @@ describe("cli metadata", () => {
 
     expect(result.exitCode).toBe(0);
     expect(result.stderr).toBe("");
-    expect(result.stdout.trim()).toBe("4.0.0");
+    expect(result.stdout.trim()).toBe("4.1.0");
   });
 });

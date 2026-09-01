@@ -5,7 +5,9 @@ import useSWR from "swr";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./error-fallback.js";
 import {
+  getOfficialRate,
   listExchangeRates,
+  type OfficialRate,
   type ListExchangeRatesParams,
   type listExchangeRatesResponseSuccess,
 } from "./generated/dollarpe.js";
@@ -13,6 +15,7 @@ import Loader from "./loader.js";
 
 export type Sort = NonNullable<ListExchangeRatesParams["sort"]>;
 export type ResponseData = listExchangeRatesResponseSuccess["data"];
+export type Command = "exchanges" | "official-rate";
 
 function Item({
   name,
@@ -93,12 +96,69 @@ function Wrapper({ sort }: { sort: Sort }) {
   return <ExchangeList data={data || []} sort={sort} />;
 }
 
-export default function App({ sort = "buy" }: { sort: Sort }) {
-  if (sort !== "buy" && sort !== "sell") {
+export function OfficialRateView({ data }: { data: OfficialRate }) {
+  return (
+    <Box flexDirection="column">
+      <Text color="red">official rate</Text>
+      <Link url={data.pageUrl}>
+        <Text>source: {data.source}</Text>
+      </Link>
+      <Text>date: {data.date}</Text>
+      <Text color="blue">buy: {data.buy}</Text>
+      <Text color="blue">sell: {data.sell}</Text>
+    </Box>
+  );
+}
+
+function OfficialRateWrapper({ date }: { date?: string }) {
+  const { data, error, isLoading } = useSWR<OfficialRate>(
+    ["official-rate", date],
+    async () => (await getOfficialRate({ date })).data,
+  );
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    throw error;
+  }
+
+  return data ? <OfficialRateView data={data} /> : null;
+}
+
+export default function App({
+  command = "exchanges",
+  sort = "buy",
+  date,
+}: {
+  command?: string;
+  sort?: Sort;
+  date?: string;
+}) {
+  if (command !== "exchanges" && command !== "official-rate") {
+    return (
+      <Box flexDirection="column">
+        <Text color="red">
+          Invalid command. Use 'exchanges' or 'official-rate'.
+        </Text>
+      </Box>
+    );
+  }
+
+  if (command === "exchanges" && sort !== "buy" && sort !== "sell") {
     return (
       <Box flexDirection="column">
         <Text color="red">Invalid sort option. Use 'buy' or 'sell'.</Text>
       </Box>
+    );
+  }
+
+  if (command === "official-rate") {
+    return (
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <OfficialRateWrapper date={date} />
+      </ErrorBoundary>
     );
   }
 

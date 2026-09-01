@@ -5,6 +5,9 @@ official SUNAT reference rate.
 
 [https://dollarpe-api.cristianbgp.com/exchanges](https://dollarpe-api.cristianbgp.com/exchanges)
 
+The published CLI exposes the same two resources as `dollarpe exchanges` and
+`dollarpe official-rate`.
+
 ## Development
 
 To install dependencies:
@@ -131,6 +134,13 @@ Example response:
 
 Invalid or future dates return `400`. If SUNAT is temporarily unavailable, the
 endpoint returns `503`.
+
+CLI equivalents:
+
+```sh
+dollarpe official-rate
+dollarpe official-rate --date=2025-11-17
+```
 
 ## Errors
 

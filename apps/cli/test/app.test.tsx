@@ -64,4 +64,35 @@ describe("exchange-rate presentation", () => {
     expect(plainText(view.lastFrame())).toContain("Something went wrong");
     view.unmount();
   });
+
+  test("renders a historical official rate", async () => {
+    globalThis.fetch = mock(async (input) => {
+      if (
+        String(input) !==
+        "https://dollarpe-api.cristianbgp.com/official-rate?date=2025-11-17"
+      ) {
+        return new Response("Unexpected request", { status: 400 });
+      }
+
+      return Response.json({
+        source: "sunat",
+        date: "2025-11-17",
+        buy: 3.365,
+        sell: 3.374,
+        pageUrl: "https://e-consulta.sunat.gob.pe/cl-at-ittipcam/tcS01Alias",
+      });
+    }) as typeof fetch;
+    const view = render(
+      <App command="official-rate" date="2025-11-17" sort="buy" />,
+    );
+
+    await Bun.sleep(50);
+
+    const frame = plainText(view.lastFrame());
+    expect(frame).toContain("official rate");
+    expect(frame).toContain("date: 2025-11-17");
+    expect(frame).toContain("buy: 3.365");
+    expect(frame).toContain("sell: 3.374");
+    view.unmount();
+  });
 });

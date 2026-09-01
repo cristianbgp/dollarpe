@@ -65,3 +65,27 @@ bun run check:api
 ```
 
 Application-specific commands can also be run directly from `apps/cli`, `apps/api`, or `apps/web`.
+
+## CLI usage
+
+Install the published command globally:
+
+```sh
+npm install --global dollarpe
+```
+
+List current exchange rates from every provider:
+
+```sh
+dollarpe exchanges
+dollarpe exchanges --sort=sell
+```
+
+Get today's official SUNAT rate or request a historical date:
+
+```sh
+dollarpe official-rate
+dollarpe official-rate --date=2025-11-17
+```
+
+Running `dollarpe` without a command remains an alias for `dollarpe exchanges`.
