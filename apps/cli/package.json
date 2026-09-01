@@ -1,6 +1,6 @@
 {
   "name": "dollarpe",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "dollar to peruvian sol exchange rate",
   "author": "cristianbgp <cristian.granda.pastor@gmail.com>",
   "license": "MIT",
@@ -15,7 +15,8 @@
     "build": "tsc",
     "dev": "bun run ./source/cli.tsx",
     "test": "bun test",
-    "check": "bun run build && bun test"
+    "check": "bun run build && bun test",
+    "prepack": "bun run check"
   },
   "keywords": [
     "currency",

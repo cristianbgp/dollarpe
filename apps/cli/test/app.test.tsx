@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, mock, test } from "bun:test";
+import { stripVTControlCharacters } from "node:util";
 import React from "react";
 import { render } from "ink-testing-library";
 import App, {
@@ -15,6 +16,9 @@ const rates: ResponseData = [
 const originalFetch = globalThis.fetch;
 const originalConsoleError = console.error;
 
+const plainText = (frame: string | undefined) =>
+  stripVTControlCharacters(frame ?? "");
+
 afterEach(() => {
   globalThis.fetch = originalFetch;
   console.error = originalConsoleError;
@@ -23,17 +27,20 @@ afterEach(() => {
 describe("exchange-rate presentation", () => {
   test("renders every exchange rate", () => {
     const { lastFrame } = render(<ExchangeList data={rates} sort="buy" />);
+    const frame = plainText(lastFrame());
 
-    expect(lastFrame()).toContain("rextie");
-    expect(lastFrame()).toContain("buy: 3.34");
-    expect(lastFrame()).toContain("sell: 3.37");
-    expect(lastFrame()).toContain("sunat");
+    expect(frame).toContain("rextie");
+    expect(frame).toContain("buy: 3.34");
+    expect(frame).toContain("sell: 3.37");
+    expect(frame).toContain("sunat");
   });
 
   test("renders the existing invalid-sort error", () => {
     const { lastFrame } = render(<App sort={"unknown" as Sort} />);
 
-    expect(lastFrame()).toBe("Invalid sort option. Use 'buy' or 'sell'.");
+    expect(plainText(lastFrame())).toBe(
+      "Invalid sort option. Use 'buy' or 'sell'.",
+    );
   });
 
   test("renders the fallback when the API rejects the request", async () => {
@@ -54,7 +61,7 @@ describe("exchange-rate presentation", () => {
 
     await Bun.sleep(50);
 
-    expect(view.lastFrame()).toContain("Something went wrong");
+    expect(plainText(view.lastFrame())).toContain("Something went wrong");
     view.unmount();
   });
 });

@@ -33,6 +33,6 @@ describe("cli metadata", () => {
 
     expect(result.exitCode).toBe(0);
     expect(result.stderr).toBe("");
-    expect(result.stdout.trim()).toBe("3.0.2");
+    expect(result.stdout.trim()).toBe("4.0.0");
   });
 });
